@@ -16,17 +16,15 @@ export class DropdownComponent implements OnInit, OnDestroy {
   arraySubcription: Subscription[] = [];
   citiesArray: Cities[] = [];
   citiesResults: CityWeather[] = [];
+  currentTemp!: string;
 
   constructor(
     private searchService: WeatherService,
     private searchCities: GetCitiesService
-  ) {
-
-  } 
+  ) {}
 
   ngOnInit(): void {
     this.getCities();
-
   }
   ngOnDestroy(): void {
     this.arraySubcription.forEach((e) => e.unsubscribe());
@@ -59,16 +57,29 @@ export class DropdownComponent implements OnInit, OnDestroy {
     );
   }
 
-  changeDegrees(degree: number, measure: string): number {
-    const defaultDegree: number = degree;
-
+  changeDegrees(measure: string): string {
     if (measure === 'c') {
-      return (degree = defaultDegree);
+      return (this.currentTemp = 'c');
     } else if (measure === 'f') {
-      return (degree * 9.0) / 5.0 + 32;
+      return (this.currentTemp = 'f');
     }
 
-    return degree + 273.15;
+    return (this.currentTemp = 'k');
+  }
 
+  changeCurrentTemp(degree: number, measure: string): number {
+    let newDegree = degree;
+
+    if (measure === 'c') {
+
+      return newDegree;
+
+    } else if (measure === 'f') {
+
+      return (newDegree * 9.0) / 5.0 + 32;
+    } else {
+
+      return newDegree + 273.15;
+    }
   }
 }

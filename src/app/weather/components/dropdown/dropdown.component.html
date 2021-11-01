@@ -30,11 +30,11 @@
         <h5 class="card-title text-center">{{ city.name }}</h5>
 
         <div class="temp">
-          <p>{{city.main.temp | degree }}</p>
+          <p>{{changeCurrentTemp(city.main.temp, currentTemp)}}°</p>
           <div class="degrees">
-            <button (click)="changeDegrees(city.main.temp, 'c')">C</button>
-            <button (click)="changeDegrees(city.main.temp, 'f')">F</button>
-            <button (click)="changeDegrees(city.main.temp, 'k')">K</button>
+            <button (click)="changeDegrees('c')">C</button>
+            <button (click)="changeDegrees('f')">F</button>
+            <button (click)="changeDegrees('k')">K</button>
           </div>
         </div>
 
