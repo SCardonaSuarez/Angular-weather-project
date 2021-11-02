@@ -1,7 +1,7 @@
 <h2>Your Cities</h2>
 
 <section class="row">
-  <div class="col-4">
+  <div class="col-4 ">
     <form>
       <div class="input-group mb-3">
         <label class="input-group-text" for="inputGroupSelect01">Options</label>
@@ -13,7 +13,7 @@
           (change)="search()"
         >
           <option *ngFor="let city of citiesArray">
-            {{ city.name }}
+            {{ city.name |capitalizeFirstLetter}} 
           </option>
         </select>
       </div>
@@ -25,12 +25,16 @@
 
 <section class="row">
   <div class="col-4" *ngFor="let city of citiesResults">
-    <article class="card" style="width: 25rem ">
+    <article class="card" style="width: 25rem">
       <div class="card-body">
         <h5 class="card-title text-center">{{ city.name }}</h5>
 
         <div class="temp">
-          <p>{{changeCurrentTemp(city.main.temp, currentTemp)}}°</p>
+          <p>
+            {{
+              changeCurrentTemp(city.main.temp, currentTemp) | number: "1.0-0"
+            }}°
+          </p>
           <div class="degrees">
             <button (click)="changeDegrees('c')">C</button>
             <button (click)="changeDegrees('f')">F</button>
@@ -39,16 +43,19 @@
         </div>
 
         <div class="temp-img">
-          <img src="../../../../assets/icons/hotWeather.svg" class="card-img-top" alt="weather" />
-          <p>Hot</p>
+          <img
+            src="{{ weatherImg(city.main.temp) }}"
+            class="card-img-top"
+            alt="weather"
+          />
+          <p>{{ weatherName(city.main.temp) | capitalizeFirstLetter }}</p>
         </div>
 
-        <a href="#" class="btn btn-primary">Update</a>
+        <a (click)="reload()" class="btn btn-primary">Update</a>
       </div>
     </article>
   </div>
 </section>
-
 
 <div *ngIf="Error" class="alert alert-danger">
   No se encontro la ciudad {{ termino }}

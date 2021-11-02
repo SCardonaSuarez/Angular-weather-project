@@ -17,6 +17,11 @@ export class DropdownComponent implements OnInit, OnDestroy {
   citiesArray: Cities[] = [];
   citiesResults: CityWeather[] = [];
   currentTemp!: string;
+  weatherImages: string[] = [
+    'https://i.ibb.co/8YSyCVf/cold-Weather.jpg',
+    'https://i.ibb.co/pjfgvfr/warm-Weather.jpg',
+    'https://i.ibb.co/3mdhbKM/hot-Weather-1.jpg',
+  ];
 
   constructor(
     private searchService: WeatherService,
@@ -36,12 +41,10 @@ export class DropdownComponent implements OnInit, OnDestroy {
     this.arraySubcription.push(
       this.searchService.searchCity(this.termino).subscribe(
         (c) => {
-          // console.log(c);
           this.citiesResults.push(c);
         },
         (err) => {
           this.Error = true;
-          // this.citiesSearch = [];
         }
       )
     );
@@ -71,15 +74,35 @@ export class DropdownComponent implements OnInit, OnDestroy {
     let newDegree = degree;
 
     if (measure === 'c') {
-
       return newDegree;
-
     } else if (measure === 'f') {
-
       return (newDegree * 9.0) / 5.0 + 32;
     } else {
-
       return newDegree + 273.15;
     }
+  }
+
+  weatherImg(degree: number): string {
+    if (degree < 19) {
+      return this.weatherImages[0];
+    } else if (degree > 19.1 && degree < 26) {
+      return this.weatherImages[1];
+    } else {
+      return this.weatherImages[2];
+    }
+  }
+
+  weatherName(degree: number): string {
+    if (degree < 19) {
+      return 'cold';
+    } else if (degree > 19.1 && degree < 26) {
+      return 'warm';
+    } else {
+      return 'hot';
+    }
+  }
+
+  reload(){
+    
   }
 }

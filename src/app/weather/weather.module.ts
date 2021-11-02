@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { CardsComponent } from './components/cards/cards.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { SharedModule } from '../shared/shared.module';
-import { TemperatureConverterPipe } from '../shared/pipes/tempareture.pipe';
 import { DegreePipe } from '../shared/pipes/degree.pipe';
 
 
@@ -26,7 +25,6 @@ import { DegreePipe } from '../shared/pipes/degree.pipe';
     CardsComponent
   ],
   providers:[
-    TemperatureConverterPipe,
     DegreePipe
   ]
 })
